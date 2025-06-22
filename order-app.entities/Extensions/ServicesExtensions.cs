@@ -9,7 +9,11 @@ namespace order_app.entities.Extensions
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            return services.AddDbContext<OrderAppDbContext>(option => option.UseInMemoryDatabase("OrderAppDb"))
+            return services.AddDbContext<OrderAppDbContext>(option =>
+                            {
+                                option.UseInMemoryDatabase("OrderAppDb");
+                                option.UseSeeding(OrderAppDbContext.Seed);
+                            })
                            .AddScoped<IOrderRepository, OrderRepository>()
                            .AddScoped<ICustomerRepository, CustomerRepository>();
         }

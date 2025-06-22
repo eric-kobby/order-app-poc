@@ -41,16 +41,25 @@ namespace order_app.services.Implementations
             var orders = _orderRepository.GetAll();
             var fulfilledOrders = await orders.Where(o => o.FulfilledAt.HasValue).ToListAsync();
             var totalOrders = await orders.CountAsync();
+            
+            var averageOrders = orders.Select(o => o.FinalAmount).ToList().Average();
+
+            var distribution = orders.GroupBy(s => s.Status)
+                .Select(g => new KeyValuePair<OrderStatus,int>(g.Key, g.Count())).ToDictionary();
 
             return new OrderAnalytics(
-                AverageOrderValue: orders.Any() ? orders.Average(o => o.FinalAmount) : 0,
+                AverageOrderValue: orders.Any() ? averageOrders : 0,
                 AverageFulfillmentTimeHours: fulfilledOrders.Any()
                     ? fulfilledOrders.Average(o => (o.FulfilledAt!.Value - o.CreatedAt).TotalHours)
                     : 0,
                 TotalOrders: totalOrders,
-                StatusDistribution: orders.GroupBy(o => o.Status)
-                    .ToDictionary(g => g.Key, g => g.Count())
+                StatusDistribution: distribution
             );
+        }
+
+        public async Task<Order?> GetOrder(int orderId)
+        {
+            return await _orderRepository.GetByIdAsync(orderId);
         }
 
         public async Task<Order?> UpdateOrderStatusAsync(int orderId, OrderStatus status)

@@ -8,5 +8,6 @@ namespace order_app.services
         Task<Order> CreateOrderAsync(CreateOrderRequest request);
         Task<Order?> UpdateOrderStatusAsync(int orderId, OrderStatus status);
         Task<OrderAnalytics> GetAnalyticsAsync();
+        Task<Order?> GetOrder(int orderId);
     }
 }
