@@ -10,6 +10,6 @@
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? FulfilledAt { get; set; }
-        public List<OrderItem> Items { get; set; } = new();
+        public List<OrderItem> Items { get; set; } = [];
     }
 }
