@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implementations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\order-app.entities\order-app.data.csproj" />
   </ItemGroup>
 
