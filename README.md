@@ -59,5 +59,4 @@ dotnet test
 1. **In-Memory Storage**: Uses thread-safe collections for simplicity
 2. **Discount Strategy**: Combines multiple discount types with a maximum cap
 3. **State Machine**: Validates order status transitions
-4. **Performance**: Response caching and efficient data structures
-5. **Testing**: Both unit tests with mocking and integration tests
+4. **Testing**: Both unit tests with mocking and integration tests
