@@ -22,14 +22,19 @@ namespace order_app.entities.Repositories.Implementations
             return _set.Where(predicate);
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             return _set;
         }
 
-        public T? GetById(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            return _set.Find(id);
+            return await _set.FindAsync(id);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await ctx.SaveChangesAsync();
         }
 
         public void Update(T entity)
